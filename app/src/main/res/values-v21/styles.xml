@@ -12,7 +12,7 @@
     </style>
 
     <style name="IntroTheme" parent="AppTheme.NoActionBar">
-        <item name="android:windowBackground">@color/colorPrimaryDark</item>
-        <item name="android:navigationBarColor">@color/colorPrimaryDark</item>
+        <item name="android:windowBackground">@color/colorPrimary</item>
+        <item name="android:navigationBarColor">@color/colorPrimary</item>
     </style>
 </resources>

@@ -15,4 +15,5 @@
     <dimen name="subtitle_font_size">16sp</dimen>
 
     <dimen name="divisor_height">1px</dimen>
+    <dimen name="intro_version_fontsize">14sp</dimen>
 </resources>
