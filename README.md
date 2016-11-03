@@ -1,6 +1,6 @@
 # Ark Monitor
 
-<img src="https://cloud.githubusercontent.com/assets/937766/19956494/2891d656-a16c-11e6-96ff-f199275ebc90.png" width="200" />
+<img src="https://cloud.githubusercontent.com/assets/937766/19981316/3ea4a4fe-a1e0-11e6-8397-3b7bd06fa59f.png" width="200" />
 
 ## License
 
