@@ -6,12 +6,14 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
-import com.vrlc92.arkmonitor.R;
 import com.vrlc92.arkmonitor.MainActivity;
+import com.vrlc92.arkmonitor.R;
 import com.vrlc92.arkmonitor.models.Block;
 import com.vrlc92.arkmonitor.models.Settings;
 import com.vrlc92.arkmonitor.services.ArkService;
@@ -74,16 +76,19 @@ public class ForgingSchedulingService extends IntentService {
                         .setContentTitle(getString(R.string.last_block_forged))
                         .setStyle(new NotificationCompat.BigTextStyle()
                                 .bigText(msg))
-                        .setLights(Color.RED, 1, 1)
                         .setAutoCancel(true)
                         .setContentText(msg);
 
         if (warning) {
             mBuilder.setVibrate(new long[]{1000, 1000, 1000, 1000});
+            Uri uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
+            mBuilder.setSound(uri);
             mBuilder.setColor(Color.RED);
+            mBuilder.setLights(Color.RED, 1, 1);
         } else {
             int colorId = ContextCompat.getColor(this, R.color.colorPrimary);
             mBuilder.setColor(colorId);
+            mBuilder.setLights(Color.BLUE, 1, 1);
         }
 
         mBuilder.setContentIntent(contentIntent);

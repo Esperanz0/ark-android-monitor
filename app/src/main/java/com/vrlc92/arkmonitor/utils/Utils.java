@@ -132,9 +132,13 @@ public class Utils {
     }
 
     public static String formatDecimal(double value) {
-        double balance = value * Math.pow(10, -8);
+        double total = convertToArkBase(value);
         DecimalFormat df = new DecimalFormat("#0.00000000");
-        return df.format(balance);
+        return df.format(total);
+    }
+
+    public static double convertToArkBase(double value){
+        return value * Math.pow(10, -8);
     }
 
     public static boolean validatePublicKey(String publicKey) {

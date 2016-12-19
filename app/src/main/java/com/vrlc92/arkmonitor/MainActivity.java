@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.vrlc92.arkmonitor.fragments.BlocksFragment;
 import com.vrlc92.arkmonitor.fragments.DelegatesFragment;
 import com.vrlc92.arkmonitor.fragments.LatestTransactionsFragment;
 import com.vrlc92.arkmonitor.fragments.MainFragment;
@@ -37,19 +38,19 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(com.vrlc92.arkmonitor.R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(com.vrlc92.arkmonitor.R.id.toolbar);
+        setContentView(R.layout.activity_main);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        mLoadingIndicatorView = (AVLoadingIndicatorView) findViewById(com.vrlc92.arkmonitor.R.id.loadingIndicator);
+        mLoadingIndicatorView = (AVLoadingIndicatorView) findViewById(R.id.loadingIndicator);
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(com.vrlc92.arkmonitor.R.id.drawer_layout);
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         mToggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, com.vrlc92.arkmonitor.R.string.navigation_drawer_open, com.vrlc92.arkmonitor.R.string.navigation_drawer_close);
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(mToggle);
         mToggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(com.vrlc92.arkmonitor.R.id.nav_view);
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
         Settings settings = Utils.getSettings(this);
@@ -86,7 +87,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(com.vrlc92.arkmonitor.R.id.drawer_layout);
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -96,16 +97,16 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(com.vrlc92.arkmonitor.R.menu.main, menu);
+        getMenuInflater().inflate(R.menu.main, menu);
 
         this.mMenu = menu;
 
-        MenuItem menuItem = menu.findItem(com.vrlc92.arkmonitor.R.id.action_alarm);
+        MenuItem menuItem = menu.findItem(R.id.action_alarm);
 
         if (Utils.alarmEnabled(this)) {
-            menuItem.setIcon(ContextCompat.getDrawable(this, com.vrlc92.arkmonitor.R.drawable.ic_alarm_on_white_24dp));
+            menuItem.setIcon(ContextCompat.getDrawable(this, R.drawable.ic_alarm_on_white_24dp));
         } else {
-            menuItem.setIcon(ContextCompat.getDrawable(this, com.vrlc92.arkmonitor.R.drawable.ic_alarm_off_white_24dp));
+            menuItem.setIcon(ContextCompat.getDrawable(this, R.drawable.ic_alarm_off_white_24dp));
         }
 
         Settings settings = Utils.getSettings(this);
@@ -123,27 +124,27 @@ public class MainActivity extends AppCompatActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == com.vrlc92.arkmonitor.R.id.action_alarm) {
+        if (id == R.id.action_alarm) {
 
             boolean alarmEnabled = Utils.alarmEnabled(this);
             if (Utils.enableAlarm(this, !alarmEnabled)) {
 
-                MenuItem menuItem = mMenu.findItem(com.vrlc92.arkmonitor.R.id.action_alarm);
+                MenuItem menuItem = mMenu.findItem(R.id.action_alarm);
 
                 alarmEnabled = Utils.alarmEnabled(this);
 
                 if (alarmEnabled) {
-                    menuItem.setIcon(ContextCompat.getDrawable(this, com.vrlc92.arkmonitor.R.drawable.ic_alarm_on_white_24dp));
+                    menuItem.setIcon(ContextCompat.getDrawable(this, R.drawable.ic_alarm_on_white_24dp));
                     mAlarm.setAlarm(this);
                 } else {
-                    menuItem.setIcon(ContextCompat.getDrawable(this, com.vrlc92.arkmonitor.R.drawable.ic_alarm_off_white_24dp));
+                    menuItem.setIcon(ContextCompat.getDrawable(this, R.drawable.ic_alarm_off_white_24dp));
                     mAlarm.cancelAlarm(this);
                 }
             }
 
             View view = this.findViewById(android.R.id.content);
 
-            int stringMessageId = alarmEnabled ? com.vrlc92.arkmonitor.R.string.alarm_on : com.vrlc92.arkmonitor.R.string.alarm_off;
+            int stringMessageId = alarmEnabled ? R.string.alarm_on : R.string.alarm_off;
             Utils.showMessage(getResources().getString(stringMessageId), view);
 
             return true;
@@ -158,34 +159,37 @@ public class MainActivity extends AppCompatActivity
 
         Fragment fragment = null;
 
-        if (id == com.vrlc92.arkmonitor.R.id.nav_home) {
+        if (id == R.id.nav_home) {
             fragment = new MainFragment();
-            setTitle(com.vrlc92.arkmonitor.R.string.nav_home);
-        } else if (id == com.vrlc92.arkmonitor.R.id.nav_latest_transactions) {
+            setTitle(R.string.nav_home);
+        } else if (id == R.id.nav_forged_blocks) {
+            fragment = new BlocksFragment();
+            setTitle(R.string.nav_forged_blocks);
+        } else if (id == R.id.nav_latest_transactions) {
             fragment = new LatestTransactionsFragment();
-            setTitle(com.vrlc92.arkmonitor.R.string.nav_latest_transactions);
-        } else if (id == com.vrlc92.arkmonitor.R.id.nav_peers) {
+            setTitle(R.string.nav_latest_transactions);
+        } else if (id == R.id.nav_peers) {
             fragment = new PeersFragment();
-            setTitle(com.vrlc92.arkmonitor.R.string.nav_peers);
-        } else if (id == com.vrlc92.arkmonitor.R.id.nav_delegates) {
+            setTitle(R.string.nav_peers);
+        } else if (id == R.id.nav_delegates) {
             fragment = new DelegatesFragment();
-            setTitle(com.vrlc92.arkmonitor.R.string.nav_delegates);
-        } else if (id == com.vrlc92.arkmonitor.R.id.nav_settings) {
+            setTitle(R.string.nav_delegates);
+        } else if (id == R.id.nav_settings) {
             fragment = new SettingsFragment();
-            setTitle(com.vrlc92.arkmonitor.R.string.nav_settings);
-        } else if (id == com.vrlc92.arkmonitor.R.id.nav_votes_made) {
+            setTitle(R.string.nav_settings);
+        } else if (id == R.id.nav_votes_made) {
             fragment = new VotesFragment();
-            setTitle(com.vrlc92.arkmonitor.R.string.nav_votes_made);
-        } else if (id == com.vrlc92.arkmonitor.R.id.nav_votes_received) {
+            setTitle(R.string.nav_votes_made);
+        } else if (id == R.id.nav_votes_received) {
             fragment = new VotersFragment();
-            setTitle(com.vrlc92.arkmonitor.R.string.nav_votes_received);
+            setTitle(R.string.nav_votes_received);
         }
 
         if (fragment != null) {
             showFragment(fragment);
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(com.vrlc92.arkmonitor.R.id.drawer_layout);
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
@@ -195,19 +199,19 @@ public class MainActivity extends AppCompatActivity
                 .beginTransaction();
 
         fragmentTransaction
-                .replace(com.vrlc92.arkmonitor.R.id.fragment_container, fragment);
+                .replace(R.id.fragment_container, fragment);
         fragmentTransaction.commit();
     }
 
     @Override
     public void onSavedSettingsListener() {
-        final MenuItem menuItem = mMenu.findItem(com.vrlc92.arkmonitor.R.id.action_alarm);
+        final MenuItem menuItem = mMenu.findItem(R.id.action_alarm);
 
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 mToggle.setDrawerIndicatorEnabled(true);
-                NavigationView navigationView = (NavigationView) findViewById(com.vrlc92.arkmonitor.R.id.nav_view);
+                NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
                 onNavigationItemSelected(navigationView.getMenu().getItem(NavItem.HOME.getIndex()));
 
                 menuItem.setVisible(true);
@@ -217,12 +221,13 @@ public class MainActivity extends AppCompatActivity
 
     enum NavItem {
         HOME(0),
-        LATEST_TRANSACTIONS(1),
-        PEERS(2),
-        DELEGATES(3),
-        VOTES(4),
-        VOTERS(5),
-        SETTINGS(6);
+        LATEST_BLOCKS(1),
+        LATEST_TRANSACTIONS(2),
+        PEERS(3),
+        DELEGATES(4),
+        VOTES(5),
+        VOTERS(6),
+        SETTINGS(7);
 
         private final int index;
 

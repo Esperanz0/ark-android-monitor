@@ -1,10 +1,16 @@
 package com.vrlc92.arkmonitor.models;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 
+/**
+ * Created by Victor on 16/05/2016.
+ */
 public class Block {
 
     private String id;
@@ -260,4 +266,25 @@ public class Block {
         return block;
     }
 
+
+    public static List<Block> fromJson(JSONArray blocksJsonArray) {
+        List<Block> blocks = new ArrayList<>();
+
+        if (blocksJsonArray != null) {
+            for (int i = 0; i < blocksJsonArray.length(); i++) {
+                JSONObject blockJsonObject = null;
+                try {
+                    blockJsonObject = blocksJsonArray.getJSONObject(i);
+                } catch (JSONException e) {
+                    Logger.getLogger(TAG).warning(e.getLocalizedMessage());
+                }
+
+                if (blockJsonObject != null) {
+                    blocks.add(Block.fromJson(blockJsonObject));
+                }
+            }
+        }
+
+        return blocks;
+    }
 }
