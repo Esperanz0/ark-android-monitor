@@ -48,20 +48,20 @@ public class PeersAdapter extends
         ipAddressTextView.setText(peer.getIp());
         portTextView.setText(String.valueOf(peer.getPort()));
 
-        Peer.PeerState peerState = Peer.PeerState.fromState(peer.getState());
+        Peer.PeerStatus peerState = Peer.PeerStatus.fromStatus(peer.getStatus());
 
         switch (peerState){
-            case BANNED:
+            case EUNAVAILABLE:
                 statusTextView.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_banned));
                 break;
-            case DISCONNECTED:
+            case ETIMEOUT:
                 statusTextView.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_disconnected));
                 break;
-            case CONNECTED:
+            case OK:
                 statusTextView.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_connected));
                 break;
             default:
-                statusTextView.setImageDrawable(null);
+                statusTextView.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_disconnected));
                 break;
         }
 

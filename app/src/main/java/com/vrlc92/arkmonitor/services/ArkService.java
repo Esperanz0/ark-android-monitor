@@ -639,7 +639,7 @@ public class ArkService {
         String urlRequest = replaceURLWithSettings(TRANSACTIONS_URL, settings);
         urlRequest = urlRequest + "?senderId=" + settings.getArkAddress() +
                 "&recipientId=" + settings.getArkAddress() +
-                "&orderBy=t_timestamp:desc&limit=10";
+                "&orderBy=timestamp:desc&limit=10";
 
         Request request = new Request.Builder()
                 .url(urlRequest)

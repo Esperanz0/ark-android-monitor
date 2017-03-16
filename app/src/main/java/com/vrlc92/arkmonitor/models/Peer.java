@@ -8,36 +8,44 @@ import java.util.logging.Logger;
 public class Peer {
     private String ip;
     private Integer port;
-    private Integer state;
+    private String status;
     private String os;
     private String version;
 
-    public enum PeerState {
-        BANNED(0),
-        DISCONNECTED(1),
-        CONNECTED(2);
+    public enum PeerStatus {
+        EUNAVAILABLE("EUNAVAILABLE"),
+        ETIMEOUT("ETIMEOUT"),
+        OK("OK"),
+        ERESPONSE("ERESPONSE");
 
-        private final int state;
+        private final String status;
 
-        PeerState(int state) {
-            this.state = state;
+        PeerStatus(String status) {
+            this.status = status;
         }
 
-        public static PeerState fromState(int state){
-            switch (state){
-                case 0:
-                    return BANNED;
-                case 1:
-                    return DISCONNECTED;
-                case 2:
-                    return CONNECTED;
-                default:
-                    return null;
+        public static PeerStatus fromStatus(String status){
+            if (status.equalsIgnoreCase("EUNAVAILABLE")) {
+                return EUNAVAILABLE;
             }
+
+            if (status.equalsIgnoreCase("ETIMEOUT")) {
+                return ETIMEOUT;
+            }
+
+            if (status.equalsIgnoreCase("OK")) {
+                return OK;
+            }
+
+            if (status.equalsIgnoreCase("ERESPONSE")) {
+                return ERESPONSE;
+            }
+
+            return null;
         }
 
-        public int getState() {
-            return state;
+        public String getStatus() {
+            return status;
         }
     }
 
@@ -59,12 +67,12 @@ public class Peer {
         this.port = port;
     }
 
-    public Integer getState() {
-        return state;
+    public String getStatus() {
+        return status;
     }
 
-    public void setState(Integer state) {
-        this.state = state;
+    public void setStatus(Integer state) {
+        this.status = status;
     }
 
     public String getOs() {
@@ -103,9 +111,9 @@ public class Peer {
         }
 
         try {
-            peer.state = jsonObject.getInt("state");
+            peer.status = jsonObject.getString("status");
         } catch (JSONException e) {
-            Logger.getLogger(TAG).warning(String.format("peer.state (%s)", e.getLocalizedMessage()));
+            Logger.getLogger(TAG).warning(String.format("peer.status (%s)", e.getLocalizedMessage()));
         }
 
         try {

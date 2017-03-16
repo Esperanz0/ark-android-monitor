@@ -29,6 +29,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="2"
             android:text="@string/empty"
+            android:maxLines="1"
+            android:ellipsize="end"
             android:textAlignment="textEnd"
             android:textSize="@dimen/default_font_size" />
 
@@ -78,6 +80,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
+            android:maxLines="1"
+            android:ellipsize="end"
             android:text="@string/empty"
             android:textAlignment="textEnd"
             android:textSize="@dimen/default_font_size" />
@@ -103,6 +107,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2"
+            android:maxLines="1"
+            android:ellipsize="end"
             android:textAlignment="textEnd"
             android:textSize="@dimen/default_font_size" />
 
