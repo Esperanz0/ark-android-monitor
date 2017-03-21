@@ -7,7 +7,7 @@
     <string name="percent_symbol">%</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="current_version">Version 1.0.0</string>
+    <string name="current_version">Version 1.1.0</string>
 
     <string name="alarm_on">Notifications on</string>
     <string name="alarm_off">Notifications off</string>
@@ -32,7 +32,6 @@
     <string name="port_hint">4000</string>
     <string name="port_message">Please enter a valid port</string>
     <string name="ssl_enabled">SSL enabled?</string>
-    <string name="default_server_enabled">Use node1.arknet.cloud</string>
 
     <string name="notification_interval">Notification interval</string>
     <string-array name="notification_interval_types">

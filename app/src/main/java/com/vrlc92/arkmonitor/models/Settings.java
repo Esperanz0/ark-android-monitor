@@ -7,7 +7,7 @@ public class Settings {
     private String ipAddress;
     private int port;
     private boolean sslEnabled;
-    private boolean defaultServerEnabled;
+    private Server server;
     private long notificationInterval;
 
     public static final String USERNAME_ATTR = "settings.username";
@@ -16,7 +16,7 @@ public class Settings {
     public static final String IP_ATTR = "settings.ip_address";
     public static final String PORT_ATTR = "settings.port";
     public static final String SSL_ENABLED_ATTR = "settings.ssl_enabled";
-    public static final String DEFAULT_SERVER_ENABLED_ATTR = "settings.default_server_enabled";
+    public static final String SERVER_ATTR = "settings.server";
     public static final String NOTIFICATION_INTERVAL_ATTR = "settings.notification_interval_attr";
 
     public String getUsername() {
@@ -67,8 +67,8 @@ public class Settings {
         this.sslEnabled = sslEnabled;
     }
 
-    public boolean getDefaultServerEnabled() {
-        return defaultServerEnabled;
+    public Server getServer() {
+        return server;
     }
 
     public void setNotificationInterval(long notificationInterval) {
@@ -79,12 +79,16 @@ public class Settings {
         return notificationInterval;
     }
 
-    public void setDefaultServerEnabled(boolean defaultServerEnabled) {
-        this.defaultServerEnabled = defaultServerEnabled;
-        if (defaultServerEnabled) {
+    public void setServer(Server server) {
+        this.server = server;
+        if (!server.isCustomServer()) {
             setIpAddress(null);
             setPort(-1);
-            setSslEnabled(true);
+            setSslEnabled(false);
         }
+    }
+
+    public void setServerById(int id) {
+        setServer(Server.fromId(id));
     }
 }

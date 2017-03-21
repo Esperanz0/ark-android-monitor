@@ -6,12 +6,14 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
 import android.text.format.DateUtils;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
+import com.vrlc92.arkmonitor.models.Server;
 import com.vrlc92.arkmonitor.models.Settings;
 
 import java.text.DecimalFormat;
@@ -29,7 +31,7 @@ public class Utils {
             "^(([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.){3}([01]?\\d\\d?|2[0-4]\\d|25[0-5])$");
     private static final String ALARM_ATTR = "alarm_key";
     private static final int MAX_PORT_NUMBER = 65535;
-    private static final String START_DATE = "24/05/2016 17:00:00";
+    private static final String START_DATE = "21/03/2016 19:00:00";
     private static final String FORMAT_DATE = "dd/MM/yyyy HH:mm:ss";
     private static final String TIME_ZONE = "UTC";
 
@@ -81,7 +83,7 @@ public class Utils {
     }
 
     public static boolean saveSettings(Activity activity, Settings settings) {
-        if (!settings.getDefaultServerEnabled()) {
+        if (settings.getServer().isCustomServer()) {
             if (!validateIpAddress(settings.getIpAddress())) {
                 return false;
             }
@@ -101,7 +103,7 @@ public class Utils {
         prefsEditor.putString(Settings.IP_ATTR, settings.getIpAddress());
         prefsEditor.putInt(Settings.PORT_ATTR, settings.getPort());
         prefsEditor.putBoolean(Settings.SSL_ENABLED_ATTR, settings.getSslEnabled());
-        prefsEditor.putBoolean(Settings.DEFAULT_SERVER_ENABLED_ATTR, settings.getDefaultServerEnabled());
+        prefsEditor.putInt(Settings.SERVER_ATTR, settings.getServer().getId());
         prefsEditor.putLong(Settings.NOTIFICATION_INTERVAL_ATTR, settings.getNotificationInterval());
 
         return prefsEditor.commit();
@@ -117,14 +119,10 @@ public class Utils {
         settings.setIpAddress(mPrefs.getString(Settings.IP_ATTR, null));
         settings.setPort(mPrefs.getInt(Settings.PORT_ATTR, -1));
         settings.setSslEnabled(mPrefs.getBoolean(Settings.SSL_ENABLED_ATTR, false));
-        settings.setDefaultServerEnabled(mPrefs.getBoolean(Settings.DEFAULT_SERVER_ENABLED_ATTR, false));
+        settings.setServerById(mPrefs.getInt(Settings.SERVER_ATTR, Server.ark1.getId()));
         settings.setNotificationInterval(mPrefs.getLong(Settings.NOTIFICATION_INTERVAL_ATTR, AlarmManager.INTERVAL_FIFTEEN_MINUTES));
 
         return settings;
-    }
-
-    public static void showMessage(Exception e, View view) {
-        showMessage(e.getLocalizedMessage(), view);
     }
 
     public static void showMessage(String message, View view) {
@@ -193,14 +191,6 @@ public class Utils {
     public static boolean alarmEnabled(Context context) {
         SharedPreferences mPrefs = PreferenceManager.getDefaultSharedPreferences(context);
         return mPrefs.getBoolean(ALARM_ATTR, false);
-    }
-
-    public static boolean enableAlarm(Context context){
-        return enableAlarm(context, true);
-    }
-
-    public static boolean disableAlarm(Context context){
-        return enableAlarm(context, false);
     }
 
     public static boolean enableAlarm(Context context, boolean enable){

@@ -34,7 +34,6 @@ public class ArkService {
     private static final String IP_ATTR = "ip";
     private static final String PORT_ATTR = "port";
     private static final String CUSTOM_API_URL = IP_ATTR + ":" + PORT_ATTR + "/api/";
-    private static final String DEFAULT_API_URL = "http://node1.arknet.cloud:4000/api/";
 
     private static final String DELEGATES_URL = CUSTOM_API_URL + "delegates/";
     private static final String ACTIVE_PEERS_URL = CUSTOM_API_URL + "peers";
@@ -71,7 +70,7 @@ public class ArkService {
     }
 
     private void requestDelegates(Settings settings, int offset, final RequestListener<List<Delegate>> listener) {
-        if (!settings.getDefaultServerEnabled()) {
+        if (settings.getServer().isCustomServer()) {
             if (!Utils.validateIpAddress(settings.getIpAddress())) {
                 listener.onFailure(new Exception("Invalid IP Address"));
                 return;
@@ -120,7 +119,7 @@ public class ArkService {
     }
 
     public void requestPeers(Settings settings, final RequestListener<List<Peer>> listener) {
-        if (!settings.getDefaultServerEnabled()) {
+        if (settings.getServer().isCustomServer()) {
             if (!Utils.validateIpAddress(settings.getIpAddress())) {
                 listener.onFailure(new Exception("Invalid IP Address"));
                 return;
@@ -176,7 +175,7 @@ public class ArkService {
     }
 
     public void requestAccount(Settings settings, final RequestListener<Account> listener) {
-        if (!settings.getDefaultServerEnabled()) {
+        if (settings.getServer().isCustomServer()) {
             if (!Utils.validateIpAddress(settings.getIpAddress())) {
                 listener.onFailure(new Exception("Invalid IP Address"));
                 return;
@@ -229,7 +228,7 @@ public class ArkService {
     }
 
     public void requestVotes(Settings settings, final RequestListener<Votes> listener) {
-        if (!settings.getDefaultServerEnabled()) {
+        if (settings.getServer().isCustomServer()) {
             if (!Utils.validateIpAddress(settings.getIpAddress())) {
                 listener.onFailure(new Exception("Invalid IP Address"));
                 return;
@@ -283,7 +282,7 @@ public class ArkService {
     }
 
     public void requestVoters(Settings settings, final RequestListener<Voters> listener) {
-        if (!settings.getDefaultServerEnabled()) {
+        if (settings.getServer().isCustomServer()) {
             if (!Utils.validateIpAddress(settings.getIpAddress())) {
                 listener.onFailure(new Exception("Invalid IP Address"));
                 return;
@@ -337,7 +336,7 @@ public class ArkService {
     }
 
     public void requestPeerVersion(Settings settings, final RequestListener<PeerVersion> listener) {
-        if (!settings.getDefaultServerEnabled()) {
+        if (settings.getServer().isCustomServer()) {
             if (!Utils.validateIpAddress(settings.getIpAddress())) {
                 listener.onFailure(new Exception("Invalid IP Address"));
                 return;
@@ -375,7 +374,7 @@ public class ArkService {
     }
 
     public void requestStatus(Settings settings, final RequestListener<Status> listener) {
-        if (!settings.getDefaultServerEnabled()) {
+        if (settings.getServer().isCustomServer()) {
             if (!Utils.validateIpAddress(settings.getIpAddress())) {
                 listener.onFailure(new Exception("Invalid IP Address"));
                 return;
@@ -413,7 +412,7 @@ public class ArkService {
     }
 
     public void requestForging(Settings settings, final RequestListener<Forging> listener) {
-        if (!settings.getDefaultServerEnabled()) {
+        if (settings.getServer().isCustomServer()) {
             if (!Utils.validateIpAddress(settings.getIpAddress())) {
                 listener.onFailure(new Exception("Invalid IP Address"));
                 return;
@@ -457,7 +456,7 @@ public class ArkService {
     }
 
     public void requestDelegate(Settings settings, final RequestListener<Delegate> listener) {
-        if (!settings.getDefaultServerEnabled()) {
+        if (settings.getServer().isCustomServer()) {
             if (!Utils.validateIpAddress(settings.getIpAddress())) {
                 listener.onFailure(new Exception("Invalid IP Address"));
                 return;
@@ -509,7 +508,7 @@ public class ArkService {
     }
 
     public void requestLastBlockForged(Settings settings, final RequestListener<Block> listener) {
-        if (!settings.getDefaultServerEnabled()) {
+        if (settings.getServer().isCustomServer()) {
             if (!Utils.validateIpAddress(settings.getIpAddress())) {
                 listener.onFailure(new Exception("Invalid IP Address"));
                 return;
@@ -567,7 +566,7 @@ public class ArkService {
     }
 
     public void requestBlocks(Settings settings, final RequestListener<List<Block>> listener) {
-        if (!settings.getDefaultServerEnabled()) {
+        if (settings.getServer().isCustomServer()) {
             if (!Utils.validateIpAddress(settings.getIpAddress())) {
                 listener.onFailure(new Exception("Invalid IP Address"));
                 return;
@@ -619,7 +618,7 @@ public class ArkService {
     }
 
     public void requestLatestTransactions(Settings settings, final RequestListener<List<Transaction>> listener) {
-        if (!settings.getDefaultServerEnabled()) {
+        if (settings.getServer().isCustomServer()) {
             if (!Utils.validateIpAddress(settings.getIpAddress())) {
                 listener.onFailure(new Exception("Invalid IP Address"));
                 return;
@@ -675,9 +674,9 @@ public class ArkService {
     }
 
     private static String replaceURLWithSettings(String url, Settings settings) {
-        if (settings.getDefaultServerEnabled()) {
+        if (!settings.getServer().isCustomServer()) {
             String apiUrl = url.replace(CUSTOM_API_URL, "");
-            return DEFAULT_API_URL + apiUrl;
+            return settings.getServer().getApiAddress() + apiUrl;
         }
 
         String apiUrl = url.replace(IP_ATTR, settings.getIpAddress());

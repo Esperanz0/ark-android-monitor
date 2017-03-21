@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity
 
         if (Utils.validateUsername(settings.getUsername()) &&
                 (Utils.validateIpAddress(settings.getIpAddress()) &&
-                        Utils.validatePort(settings.getPort()) || settings.getDefaultServerEnabled())) {
+                        Utils.validatePort(settings.getPort()) || !settings.getServer().isCustomServer())) {
 
             onNavigationItemSelected(navigationView.getMenu().getItem(NavItem.HOME.getIndex()));
 
@@ -113,7 +113,7 @@ public class MainActivity extends AppCompatActivity
 
         if (!Utils.validateUsername(settings.getUsername()) ||
                 !(Utils.validateIpAddress(settings.getIpAddress()) &&
-                        Utils.validatePort(settings.getPort()) || settings.getDefaultServerEnabled())) {
+                        Utils.validatePort(settings.getPort()) || !settings.getServer().isCustomServer())) {
             menuItem.setVisible(false);
         }
 
