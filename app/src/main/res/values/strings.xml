@@ -29,7 +29,7 @@
     <string name="ip_address_message">Please enter a valid ip address</string>
     <string name="username_message">Please enter a valid username</string>
     <string name="port">Port</string>
-    <string name="port_hint">4000</string>
+    <string name="port_hint">4001</string>
     <string name="port_message">Please enter a valid port</string>
     <string name="ssl_enabled">SSL enabled?</string>
 

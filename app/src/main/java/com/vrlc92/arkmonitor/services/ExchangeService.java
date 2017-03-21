@@ -2,6 +2,7 @@ package com.vrlc92.arkmonitor.services;
 
 import com.vrlc92.arkmonitor.models.Ticker;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -16,8 +17,7 @@ import okhttp3.Response;
 public class ExchangeService {
     private static ExchangeService instance;
     private final OkHttpClient client;
-    private static final String URL_TICKER = "https://poloniex.com/public?command=returnTicker";
-    private static final String CURRENCY_PAIR = "BTC_LSK";
+    private static final String URL_TICKER = "https://bittrex.com/api/v1.1/public/getmarketsummary?market=btc-ark";
 
     private static final String BITCOIN_EUR_URL_TICKER = "https://www.bitstamp.net/api/v2/ticker/btceur/";
     private static final String BITCOIN_USD_URL_TICKER = "https://www.bitstamp.net/api/v2/ticker/btcusd/";
@@ -49,12 +49,12 @@ public class ExchangeService {
                 try {
                     JSONObject jsonObject = new JSONObject(jsonData);
 
-                    JSONObject tickerJson = jsonObject.getJSONObject(CURRENCY_PAIR);
+                    JSONArray tickers = jsonObject.getJSONArray("result");
 
                     Ticker ticker = null;
 
-                    if (null != tickerJson) {
-                        ticker = Ticker.fromJson(tickerJson);
+                    if (null != tickers && tickers.length() > 0) {
+                        ticker = Ticker.fromJson(tickers.getJSONObject(0));
                     }
 
                     listener.onResponse(ticker);

@@ -138,6 +138,45 @@ public class Ticker {
             Logger.getLogger(TAG).warning(String.format("ticker.low24hr (%s)", e.getLocalizedMessage()));
         }
 
+        try {
+            ticker.last = tickerJson.getDouble("Last");
+        } catch (JSONException e) {
+            Logger.getLogger(TAG).warning(String.format("ticker.Last (%s)", e.getLocalizedMessage()));
+        }
+
+        try {
+            ticker.lowestAsk = tickerJson.getDouble("Ask");
+        } catch (JSONException e) {
+            Logger.getLogger(TAG).warning(String.format("ticker.Ask (%s)", e.getLocalizedMessage()));
+        }
+
+        try {
+            ticker.highestBid = tickerJson.getDouble("Bid");
+        } catch (JSONException e) {
+            Logger.getLogger(TAG).warning(String.format("ticker.Bid (%s)", e.getLocalizedMessage()));
+        }
+
+        try {
+            ticker.baseVolume = tickerJson.getDouble("BaseVolume");
+        } catch (JSONException e) {
+            Logger.getLogger(TAG).warning(String.format("ticker.BaseVolume (%s)", e.getLocalizedMessage()));
+        }
+
+        try {
+            ticker.high24hr = tickerJson.getDouble("High");
+        } catch (JSONException e) {
+            Logger.getLogger(TAG).warning(String.format("ticker.High (%s)", e.getLocalizedMessage()));
+        }
+
+        try {
+            ticker.low24hr = tickerJson.getDouble("Low");
+        } catch (JSONException e) {
+            Logger.getLogger(TAG).warning(String.format("ticker.Low (%s)", e.getLocalizedMessage()));
+        }
+
+
+
+
         return ticker;
     }
 
