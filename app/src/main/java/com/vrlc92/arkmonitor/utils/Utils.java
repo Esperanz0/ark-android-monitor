@@ -31,7 +31,7 @@ public class Utils {
             "^(([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.){3}([01]?\\d\\d?|2[0-4]\\d|25[0-5])$");
     private static final String ALARM_ATTR = "alarm_key";
     private static final int MAX_PORT_NUMBER = 65535;
-    private static final String START_DATE = "21/03/2016 13:00:00";
+    private static final String START_DATE = "21/03/2017 13:00:00";
     private static final String FORMAT_DATE = "dd/MM/yyyy HH:mm:ss";
     private static final String TIME_ZONE = "UTC";
 
