@@ -29,9 +29,9 @@ import com.vrlc92.arkmonitor.utils.Utils;
 public class SettingsFragment extends Fragment implements OnClickListener, AdapterView.OnItemSelectedListener {
 
     private OnSavedSettingsListener mListener;
-    private static final int INTERVAL_FIFTEEN_MINUTES_INDEX = 0;
-    private static final int INTERVAL_HALF_HOUR_INDEX = 1;
-    private static final int INTERVAL_HOUR_INDEX = 2;
+    private static final int INTERVAL_SEVEN_MINUTES_INDEX = 0;
+    private static final int INTERVAL_FIFTEEN_MINUTES_INDEX = 1;
+    private static final int INTERVAL_HALF_HOUR_INDEX = 2;
 
     public SettingsFragment() {
         // Required empty public constructor
@@ -107,13 +107,12 @@ public class SettingsFragment extends Fragment implements OnClickListener, Adapt
         }
 
         long notificationInterval = settings.getNotificationInterval();
-
-        if (notificationInterval == AlarmManager.INTERVAL_FIFTEEN_MINUTES) {
+        if (notificationInterval == 420000L) {
+            notificationIntervalSpinner.setSelection(INTERVAL_SEVEN_MINUTES_INDEX);
+        } else if (notificationInterval == AlarmManager.INTERVAL_FIFTEEN_MINUTES) {
             notificationIntervalSpinner.setSelection(INTERVAL_FIFTEEN_MINUTES_INDEX);
         } else if (notificationInterval == AlarmManager.INTERVAL_HALF_HOUR) {
             notificationIntervalSpinner.setSelection(INTERVAL_HALF_HOUR_INDEX);
-        } else if (notificationInterval == AlarmManager.INTERVAL_HOUR) {
-            notificationIntervalSpinner.setSelection(INTERVAL_HOUR_INDEX);
         }
 
         if (!Utils.isOnline(getActivity())) {
@@ -224,7 +223,7 @@ public class SettingsFragment extends Fragment implements OnClickListener, Adapt
                 settings.setNotificationInterval(AlarmManager.INTERVAL_HALF_HOUR);
                 break;
             default:
-                settings.setNotificationInterval(AlarmManager.INTERVAL_HOUR);
+                settings.setNotificationInterval(420000L);
                 break;
         }
 

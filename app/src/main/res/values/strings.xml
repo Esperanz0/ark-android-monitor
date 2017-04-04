@@ -7,7 +7,7 @@
     <string name="percent_symbol">%</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="current_version">Version 1.3.0</string>
+    <string name="current_version">Version 1.3.1</string>
     <string name="for_txt">for</string>
     <string name="android_txt">Android</string>
 
@@ -37,9 +37,9 @@
 
     <string name="notification_interval">Notification interval</string>
     <string-array name="notification_interval_types">
+        <item>7 minutes</item>
         <item>15 minutes</item>
         <item>30 minutes</item>
-        <item>1 hour</item>
     </string-array>
 
     <!-- Delegates-->
